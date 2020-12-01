@@ -39,12 +39,12 @@ int main() {
      * repalceExtensionByIdx() useful and you want to
      * implement it
      * checkReplaceExtensionByIdx(tableName, indexName); */
-    /*checkCreateIndex(indexName);
-    checkCreateTable(tableName);*/
+    checkCreateIndex(indexName);
+    checkCreateTable(tableName);
     createTestFiles(tableName, indexName);
     checkPrint(indexName);
-    /*checkFindKey(indexName);
-    checkAddIndexEntry(indexName);*/
+    checkFindKey(indexName);
+    checkAddIndexEntry(indexName);
 #ifdef NEVERDEFINED
 #endif
     return (0);
