@@ -9,11 +9,11 @@ void replaceExtensionByIdx(const char *fileName, char * indexName) {
 
 bool createTable(const char * tableName) {
     FILE *f;
-    int d = -1;
+    int num = -1;
     
     if (!fopen(tableName, "r")) {
         f = fopen(tableName, "w");
-        fwrite(&d, sizeof(int), 1, f);
+        fwrite(&num, sizeof(int), 1, f);
         fclose(f);
     }
 
@@ -22,16 +22,15 @@ bool createTable(const char * tableName) {
 
 bool createIndex(const char *indexName) {
     FILE *f;
-    int d = -1;
-
+    int num = -1;
     if (!fopen(indexName, "r")) {
         f = fopen(indexName, "w");
-        fwrite(&d, sizeof(int), 1, f);
-        fwrite(&d, sizeof(int), 1, f);
+
+        fwrite(&num, sizeof(int), 1, f);
+        fwrite(&num, sizeof(int), 1, f);
 
         fclose(f);
     }
-
     return true;
 }
 
@@ -39,17 +38,25 @@ void printnode(size_t _level, size_t level, FILE * indexFileHandler, int node_id
     int posicion = 0, izq = 0, der = 0, offset = 0, i = 0;
     char book_id[PK_SIZE];
 
-    if (_level > level) return;
-    if (node_id == -1) return;
+    if (_level > level) {
+        return;
+    }
+    if (node_id == -1) {
+        return;
+    }
 
-    posicion = node_id*(4+4*4)+8;
+    posicion = node_id * (4 + 4 * 4) + 8;
 
     fseek(indexFileHandler, posicion, SEEK_SET);
+
     fread(book_id, sizeof(book_id), 1, indexFileHandler);
+
     fread(&izq, sizeof(int), 1, indexFileHandler);
     fread(&der, sizeof(int), 1, indexFileHandler);
+
     fread(&offset, sizeof(int), 1, indexFileHandler);
     fread(&offset, sizeof(int), 1, indexFileHandler);
+
     for (i=0; (size_t) i < _level; i++ )
         printf("     ");
     printf("%c %s (%d): %d\n", side, book_id, node_id, offset);
@@ -62,12 +69,14 @@ void printnode(size_t _level, size_t level, FILE * indexFileHandler, int node_id
 
 void printTree(size_t level, const char * indexName) {
     FILE *f;
-    int rrn_root;
+    int raiz;
 
-    if (!(f = fopen(indexName, "r+"))) return;
+    if (!(f = fopen(indexName, "r+"))) {
+        return;
+    }
 
-    fread(&rrn_root, sizeof(int), 1 , f);
-    printnode(0, level, f, rrn_root, '  ');
+    fread(&raiz, sizeof(int), 1 , f);
+    printnode(0, level, f, raiz, '  ');
 
     fclose(f);
     
