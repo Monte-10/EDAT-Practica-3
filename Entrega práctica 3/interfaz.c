@@ -9,7 +9,7 @@ int ShowMainMenu() {
     char buf[16]; 
 
     do {
-        printf(" (1) use\n"
+        printf("\n (1) use\n"
             " (2) insert\n"
             " (3) print\n"
             " (4) exit\n\n"
@@ -49,6 +49,7 @@ int main(void) {
                 createTable(tablename);
                 createIndex(indexname);
                 use = 1;
+                printf ("\nTabla creada correctamente.");
                 printf("\n");
             }
                 break;
@@ -75,6 +76,7 @@ int main(void) {
 
                     addTableEntry(&book, tablename, indexname);
                     free(book.title);
+                    printf("\nSe ha realizado correctamente.");
                     printf("\n");
                 }
             }
@@ -85,6 +87,7 @@ int main(void) {
                 scanf("%d",&altura);
                 fgets(reserva, 16, stdin);
                 printTree(altura,indexname);
+                printf("\nÁrbol imprimido correctamente.");
                 printf("\n");
             }
                 break;
